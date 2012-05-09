@@ -6,7 +6,7 @@ test:
 		--reporter $(REPORTER) \
 		$(TESTS)
 
-init: 
+setup:
 	chmod 777 ./data
 
-.PHONY: test init
+.PHONY: test setup
