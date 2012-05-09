@@ -44,4 +44,17 @@ describe('Application', function() {
       app.get('foo').should.eql('local');
     });
   });
+
+  it('delegates start to Router', function(done) {
+    var args = { arg: 1 };
+    var router = {};
+    var app = new Application({}, router);
+
+    router.dispatch = function(arg) {
+      arg.should.eql(args);
+      done();
+    };
+
+    app.start(args);
+  });
 });
