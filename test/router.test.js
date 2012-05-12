@@ -28,7 +28,7 @@ var Router = require('../lib/router');
 describe('Router', function() {
   var router = null;
 
-  before(function() {
+  beforeEach(function() {
     router = new Router;
   });
 

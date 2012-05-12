@@ -52,12 +52,4 @@ describe('Route', function() {
       }).should.throw(Error);
     });
   });
-
-
-  it('can tell if matches a given path', function() {
-    var route = new Route('foo', handler);
-
-    route.match(/foo/).should.be.true;
-    route.match(/bar/).should.be.false;
-  });
 });
