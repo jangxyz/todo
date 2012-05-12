@@ -16,11 +16,7 @@ var should = require('chai').should();
 var Route = require('../lib/route');
 
 describe('Route', function() {
-  var handler = null;
-
-  before(function() {
-    handler = function handler() {};
-  });
+  var handler = function handler() {};
 
   describe('path', function() {
     it('is converted to a regular expression', function() {
