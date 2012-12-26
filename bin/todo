@@ -1,1 +1,165 @@
 #!/usr/bin/env node
+
+/*!
+ * External dependencies.
+ */
+
+var program = require('commander');
+
+/*!
+ * Core dependencies.
+ */
+
+var fs = require('fs')
+  , path = require('path');
+
+/*!
+ * Internal dependencies.
+ */
+
+var util = require('../lib/util');
+
+/*!
+ * Version.
+ */
+
+var version = require('../package.json').version;
+
+/*!
+ * Default list name.
+ */
+
+var list = process.env.TOOD_LIST || 'main';
+
+/*!
+ * Default reporter.
+ */
+
+var reporter = process.env.TODO_REPORTER || 'list';
+
+/*!
+ * Storage path.
+ */
+
+var root = process.env.TODO_PATH || process.env.HOME;
+
+/*!
+ * Reporters directory.
+ */
+
+var reportersDir = path.resolve(__dirname, '../lib/reporters');
+
+/*!
+ * Options.
+ */
+
+program
+  .version(version)
+  .option('-r, --reporter <name>', 'specify a reporter to use')
+  .option('-l, --list <name>', 'specify the list to use')
+  .option('--reporters', 'display available reporters')
+  .option('--lists', 'display the added lists')
+
+/*!
+ * Name.
+ */
+
+program.name = 'todo';
+
+/*!
+ * Print the available reporters.
+ *
+ *  $ todo --reporters
+ */
+
+program.on('reporters', function() {
+  var reporters = fs.readdirSync(reportersDir).map(function(file) {
+    return '- ' + file.replace(/\.js$/, '');
+  });
+
+  util.print(['Available reporters:', ''].concat(reporters));
+});
+
+/*!
+ * Specify a reporter.
+ *
+ *  $ todo --reporter list
+ */
+
+program.on('reporter', function(name) {
+  reporter = name;
+});
+
+/*!
+ * Specify a todo list.
+ *
+ *  $ todo --list personal
+ */
+
+program.on('list', function(name) {
+  list = name;
+});
+
+/*!
+ * Add a todo item.
+ *
+ *  $ todo add "Clean the kitchen"
+ */
+
+program
+  .command('add <todo>')
+  .description('Add a todo item')
+  .action(function() {});
+
+/*!
+ * Remove a todo item.
+ *
+ *  $ todo rm 1
+ *  $ todo rm kitchen
+ */
+
+program
+  .command('rm <todo>')
+  .description('Remove a todo item')
+  .action(function() {});
+
+/*!
+ * Check a todo item.
+ *
+ *  $ todo check 1
+ *  $ todo check kitchen
+ */
+
+program
+  .command('check <todo>')
+  .description('Check a todo item')
+  .action(function() {});
+
+/*!
+ * Uncheck a todo item.
+ *
+ *  $ todo uncheck 1
+ *  $ todo uncheck kitchen
+ */
+
+program
+  .command('uncheck <todo>')
+  .description('Uncheck a todo item')
+  .action(function() {});
+
+/*!
+ * Clear the current list.
+ *
+ *  $ todo clean
+ */
+
+program
+  .command('clear')
+  .description('Clear the current list')
+  .action(function() {});
+
+/*!
+ * Parse the input.
+ */
+
+program.parse(process.argv);
