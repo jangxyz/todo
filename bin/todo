@@ -17,7 +17,8 @@ var fs = require('fs')
  * Internal dependencies.
  */
 
-var util = require('../lib/util');
+var util = require('../lib/util')
+  , create = require('../lib/factory');
 
 /*!
  * Version.
@@ -54,6 +55,18 @@ var status = process.env.TODO_STATUS || 'all';
  */
 
 var reportersDir = path.resolve(__dirname, '../lib/reporters');
+
+/*!
+ * A simple factory wrapper in order to eliminate
+ * duplication.
+ *
+ * @returns {Object}
+ * @api private
+ */
+
+function todo() {
+  return create(list, reporter, root);
+};
 
 /*!
  * Options.
@@ -116,7 +129,9 @@ program.on('list', function(name) {
 program
   .command('add <todo>')
   .description('Add a todo item')
-  .action(function() {});
+  .action(function(item) {
+    todo().add(item);
+  });
 
 /*!
  * Remove a todo item.
