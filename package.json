@@ -1,19 +1,18 @@
 {
   "name": "todo",
-  "version": "1.0.0.alpha",
+  "version": "1.0.0alpha",
   "description": "Todos in the CLI like what.",
   "keywords": [
     "todo",
-    "todo cli",
-    "cli"
+    "todo cli"
   ],
   "author": "Veselin Todorov <hi@vesln.com>",
   "dependencies": {
     "commander": "~1.1.1"
   },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*"
+    "mocha": "~1.7.4",
+    "chai": "~1.4.2"
   },
   "repository": {
     "type": "git",
