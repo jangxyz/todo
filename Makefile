@@ -1,12 +1,14 @@
-TESTS = test/*.test.js
+TESTS = $(shell find test/ -name "*.test.js" -type f | sort)
+UI = tdd
 REPORTER = dot
+
+check: test
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
+		--require ./test/support/bootstrap.js \
+		--ui $(UI) \
 		$(TESTS)
 
-init: 
-	chmod 777 ./data
-
-.PHONY: test init
+.PHONY: test
