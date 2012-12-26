@@ -44,6 +44,12 @@ var reporter = process.env.TODO_REPORTER || 'list';
 var root = process.env.TODO_PATH || process.env.HOME;
 
 /*!
+ * Filter type. Might be "all", "checked", "unchecked".
+ */
+
+var status = process.env.TODO_STATUS || 'all';
+
+/*!
  * Reporters directory.
  */
 
@@ -58,7 +64,8 @@ program
   .option('-r, --reporter <name>', 'specify a reporter to use')
   .option('-l, --list <name>', 'specify the list to use')
   .option('--reporters', 'display available reporters')
-  .option('--lists', 'display the added lists')
+  .option('--status', 'filter items by status - "all", "checked", "unchecked"')
+  .option('--lists', 'display the added lists');
 
 /*!
  * Name.
